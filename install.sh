@@ -12,6 +12,7 @@ notice "Checking UEFI boot mode."
 test -d /sys/firmware/efi/efivars
 
 notice "Updating system clock."
+timedatectl set-timezone Europe/Paris
 timedatectl set-ntp true
 
 notice "Preparing disk."
