@@ -84,6 +84,6 @@ echo "
 title   Arch Linux
 linux   /${vmlinuz}
 initrd  /initramfs-linux.img
-options root=/dev/sda2 rw
+options root=/dev/vda2 rw
 " > /boot/loader/entries/arch.conf
 bootctl list

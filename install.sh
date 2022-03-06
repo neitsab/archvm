@@ -16,21 +16,21 @@ timedatectl set-timezone Europe/Paris
 timedatectl set-ntp true
 
 notice "Preparing disk."
-for dev in /dev/sda1 /dev/sda2; do
+for dev in /dev/vda1 /dev/vda2; do
 	if grep $dev /etc/mtab -q; then
 		umount $dev
 	fi
 done
-parted -s /dev/sda mklabel gpt
-parted -s /dev/sda mkpart primary fat32 0% 512MiB
-parted -s /dev/sda mkpart primary ext4 512MiB 100%
-parted -s /dev/sda set 1 esp on
-parted -s /dev/sda set 1 boot on
-mkfs.fat -F 32 /dev/sda1
-mkfs.ext4 -F /dev/sda2
-mount /dev/sda2 /mnt
+parted -s /dev/vda mklabel gpt
+parted -s /dev/vda mkpart primary fat32 0% 512MiB
+parted -s /dev/vda mkpart primary ext4 512MiB 100%
+parted -s /dev/vda set 1 esp on
+parted -s /dev/vda set 1 boot on
+mkfs.fat -F 32 /dev/vda1
+mkfs.ext4 -F /dev/vda2
+mount /dev/vda2 /mnt
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount /dev/vda1 /mnt/boot
 
 notice "Fetching chroot script."
 # Done as early as possible (after preparing the location to save it to) in
