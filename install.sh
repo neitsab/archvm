@@ -36,7 +36,11 @@ notice "Selecting mirrors."
 # reflector package doesn't exist for aarch64.
 if [ "$(uname -m)" == x86_64 ]; then
 	systemctl disable --now reflector
-	reflector --country France,Germany --latest 5 --protocol https --sort rate > /etc/pacman.d/mirrorlist
+	reflector --country France,Germany \
+	          --latest 5 \
+	          --protocol https \
+	          --sort rate \
+	          --save /etc/pacman.d/mirrorlist
 fi
 
 notice "Installing base."
