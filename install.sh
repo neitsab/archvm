@@ -8,14 +8,14 @@ notice() {
 	set -x
 }
 
-notice "Checking UEFI boot mode."
+notice "Checking UEFI boot mode"
 test -d /sys/firmware/efi/efivars
 
-notice "Updating system clock."
+notice "Updating system clock"
 timedatectl set-timezone Europe/Paris
 timedatectl set-ntp true
 
-notice "Preparing disk."
+notice "Preparing disk"
 echo -e ',512M,U\n,,L' | sfdisk --label gpt /dev/vda
 mkfs.fat -F 32 /dev/vda1
 mkfs.xfs -m bigtime=1,rmapbt=1 /dev/vda2
@@ -23,7 +23,7 @@ mount /dev/vda2 /mnt
 mkdir /mnt/boot
 mount /dev/vda1 /mnt/boot
 
-notice "Fetching chroot script."
+notice "Fetching chroot script"
 # Done as early as possible (after preparing the location to save it to) in
 # case internet connectivity is not working.
 src="https://raw.githubusercontent.com/neitsab/archvm/master/chroot.sh"
@@ -31,7 +31,7 @@ dst="/mnt/chroot.sh"
 curl "$src" > "$dst"
 chmod +x "$dst"
 
-notice "Selecting mirrors."
+notice "Selecting mirrors"
 # Only needed for x86_64, because aarch64 mirrors do GeoIP based balancing. The
 # reflector package doesn't exist for aarch64.
 if [ "$(uname -m)" == x86_64 ]; then
@@ -43,7 +43,7 @@ if [ "$(uname -m)" == x86_64 ]; then
 	          --save /etc/pacman.d/mirrorlist
 fi
 
-notice "Installing base."
+notice "Installing base"
 pacstrap /mnt \
         base linux \
         micro \
@@ -60,10 +60,10 @@ systemd-firstboot --root=/mnt \
             --root-shell=zsh
             --force
 
-notice "Run chroot script."
+notice "Run chroot script"
 arch-chroot /mnt /chroot.sh
 
-notice "Shutdown notice."
+notice "Shutdown notice"
 echo "Installation complete. You can now:"
 echo "  - Shutdown the VM using \`shutdown -h now\`"
 echo "  - Remove the installation media"
