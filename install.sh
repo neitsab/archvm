@@ -56,9 +56,9 @@ systemd-firstboot --root=/mnt \
             --keymap=fr-latin9 \
             --timezone=Europe/Paris \
             --hostname=archvm \
-            --root-password-hashed=$6$MhtL8VHgK2EXHmSJ$CgXvnbnhBhG2zhJNvvx3MdPcA6qZ26Auxa/24chFI.momWLt63FMlhvcaVF64V2OPJqGvi8N6yWpng2rHLQzS.
-            --root-shell=zsh
-            --force
+            --root-password-hashed=$6$MhtL8VHgK2EXHmSJ$CgXvnbnhBhG2zhJNvvx3MdPcA6qZ26Auxa/24chFI.momWLt63FMlhvcaVF64V2OPJqGvi8N6yWpng2rHLQzS. \
+            --root-shell=/usr/bin/zsh \
+            --force \
 
 notice "Run chroot script"
 arch-chroot /mnt /chroot.sh
