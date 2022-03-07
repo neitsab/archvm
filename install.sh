@@ -35,9 +35,8 @@ notice "Selecting mirrors."
 # Only needed for x86_64, because aarch64 mirrors do GeoIP based balancing. The
 # reflector package doesn't exist for aarch64.
 if [ "$(uname -m)" == x86_64 ]; then
-	# TODO: disable the reflector daemon so that it doesn't try to overwrite
-	# the mirror list.
-	reflector --country Australia --sort rate > /etc/pacman.d/mirrorlist
+	systemctl disable --now reflector
+	reflector --country France,Germany --latest 5 --protocol https --sort rate > /etc/pacman.d/mirrorlist
 fi
 
 notice "Installing base."
