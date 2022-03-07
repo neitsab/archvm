@@ -40,7 +40,11 @@ if [ "$(uname -m)" == x86_64 ]; then
 fi
 
 notice "Installing base."
-pacstrap /mnt base linux micro grml-zsh-config zsh-completions zsh-syntax-highlighting
+pacstrap /mnt \
+        base linux \
+        micro \
+        grml-zsh-config zsh-completions zsh-syntax-highlighting \
+        xfsprogs dosfstools
 
 notice "Preparing system with systemd-firstboot"
 systemd-firstboot --root=/mnt \
