@@ -18,8 +18,7 @@ locale-gen
 
 notice "Setting up networking."
 #echo "archvm$(date +%Y%m%d)" > /etc/hostname
-echo "
-127.0.0.1   localhost
+echo "127.0.0.1   localhost
 ::1         localhost
 127.0.1.1   archvm.localdomain archvm" > /etc/hosts
 systemctl enable systemd-{resolve,network}d.service
@@ -47,6 +46,11 @@ timedatectl set-ntp true
 #pacman --noconfirm -S dhcpcd openssh sudo git
 #systemctl enable dhcpcd.service
 #systemctl enable sshd.service
+
+notice "Configuring initramfs (mkinitcpio)"
+sed -i "/^HOOKS=(base udev/s/base udev/systemd/" /etc/mkinitcpio.conf
+sed -i "/PRESETS=('default' 'fallback')/s/ 'fallback'//" /etc/mkinitcpio.d/linux.preset
+mkinitcpio -P
 
 notice "Creating user."
 NAME=archvm
