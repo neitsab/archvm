@@ -65,6 +65,6 @@ arch-chroot /mnt /chroot.sh
 
 notice "Shutdown notice"
 echo "Installation complete. You can now:"
-echo "  - Shutdown the VM using \`shutdown -h now\`"
+echo "  - Shutdown the VM using \`poweroff\`"
 echo "  - Remove the installation media"
 echo "  - restart the VM"
