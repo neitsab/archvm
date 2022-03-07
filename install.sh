@@ -60,6 +60,9 @@ systemd-firstboot --root=/mnt \
             --root-shell=/usr/bin/zsh \
             --force \
 
+notice "Set up systemd-resolved symlink"
+ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
+
 notice "Run chroot script"
 arch-chroot /mnt /chroot.sh
 

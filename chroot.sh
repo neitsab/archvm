@@ -22,6 +22,12 @@ echo "
 127.0.0.1   localhost
 ::1         localhost
 127.0.1.1   archvm.localdomain archvm" > /etc/hosts
+systemctl enable systemd-{resolve,network}d.service
+echo "[Match]
+Name=en*
+
+[Network]
+DHCP=yes" > /etc/systemd/network/20-wired.network
 
 notice "Setting up NTP."
 systemctl enable systemd-timesyncd.service
