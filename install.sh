@@ -48,7 +48,8 @@ pacstrap /mnt \
         base linux \
         micro \
         grml-zsh-config zsh-completions zsh-syntax-highlighting \
-        xfsprogs dosfstools
+        xfsprogs dosfstools \
+        sudo
 
 notice "Preparing system with systemd-firstboot"
 systemd-firstboot --root=/mnt \
@@ -56,7 +57,6 @@ systemd-firstboot --root=/mnt \
             --keymap=fr-latin9 \
             --timezone=Europe/Paris \
             --hostname=archvm \
-            --root-password-hashed=$6$MhtL8VHgK2EXHmSJ$CgXvnbnhBhG2zhJNvvx3MdPcA6qZ26Auxa/24chFI.momWLt63FMlhvcaVF64V2OPJqGvi8N6yWpng2rHLQzS. \
             --root-shell=/usr/bin/zsh \
             --force \
 

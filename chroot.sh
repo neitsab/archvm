@@ -41,13 +41,13 @@ timedatectl set-ntp true
 #pacman --noconfirm -S dhcpcd openssh sudo git
 #systemctl enable dhcpcd.service
 #systemctl enable sshd.service
-#echo "Defaults passwd_timeout=0" >> /etc/sudoers
-#echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 notice "Creating user."
-useradd -m petsta
-echo "petsta:petsta" | chpasswd
-gpasswd -a petsta wheel
+NAME=archvm
+useradd -m -G wheel -s /bin/zsh "${NAME}"
+echo "${NAME}":"${NAME}" | chpasswd
+printf "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10\n" > /etc/sudoers.d/local
+passwd -l root
 
 # Set up systemd-boot as the bootloader. A bootloader is used rather than
 # directly booting via EFISTUB, since the virtualised UEFI boot menu in
