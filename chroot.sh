@@ -9,23 +9,22 @@ notice() {
 }
 
 notice "Setting up locale and timezone."
-ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
+#ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
 hwclock --systohc
-sed -i '/en_AU.UTF-8/s/#//' /etc/locale.gen
+sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
-echo LANG=en_AU.UTF-8 > /etc/locale.conf
-echo KEYMAP=dvorak > /etc/vconsole.conf
+#echo LANG=en_AU.UTF-8 > /etc/locale.conf
+#echo KEYMAP=dvorak > /etc/vconsole.conf
 
 notice "Setting up networking."
-echo "archvm$(date +%Y%m%d)" > /etc/hostname
+#echo "archvm$(date +%Y%m%d)" > /etc/hostname
 echo "
 127.0.0.1   localhost
 ::1         localhost
-127.0.1.1   archvm.localdomain archvm
-10.0.2.2    vmhost" > /etc/hosts
+127.0.1.1   archvm.localdomain archvm" > /etc/hosts
 
-notice "Setting up root account."
-echo root:root | chpasswd
+#notice "Setting up root account."
+#echo root:root | chpasswd
 
 notice "Disabling DNSSEC."
 # Some corporate DNS servers don't play well with DNSSEC.
