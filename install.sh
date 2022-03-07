@@ -40,7 +40,7 @@ if [ "$(uname -m)" == x86_64 ]; then
 fi
 
 notice "Installing base."
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux micro grml-zsh-config zsh-completions zsh-syntax-highlighting
 
 notice "Generating fstab."
 genfstab -U /mnt >> /mnt/etc/fstab
