@@ -26,9 +26,8 @@ mount /dev/vda1 /mnt/boot
 notice "Fetching chroot script."
 # Done as early as possible (after preparing the location to save it to) in
 # case internet connectivity is not working.
-mkdir -p /mnt/archvm
-src="https://raw.githubusercontent.com/peterstace/archvm/master/chroot.sh"
-dst="/mnt/archvm/chroot.sh"
+src="https://raw.githubusercontent.com/neitsab/archvm/master/chroot.sh"
+dst="/mnt/chroot.sh"
 curl "$src" > "$dst"
 chmod +x "$dst"
 
@@ -48,7 +47,7 @@ notice "Generating fstab."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 notice "Run chroot script."
-arch-chroot /mnt /archvm/chroot.sh
+arch-chroot /mnt /chroot.sh
 
 notice "Shutdown notice."
 echo "Installation complete. You can now:"
