@@ -23,47 +23,26 @@ echo "
 ::1         localhost
 127.0.1.1   archvm.localdomain archvm" > /etc/hosts
 
-#notice "Setting up root account."
-#echo root:root | chpasswd
-
-notice "Disabling DNSSEC."
-# Some corporate DNS servers don't play well with DNSSEC.
-echo DNSSEC=false >> /etc/systemd/resolved.conf
-
-notice "Setting up DNS for dhcpcd."
-echo "static domain_name_servers=8.8.8.8 8.8.4.4" >> /etc/dhcpcd.conf
-
-notice "Setting shutdown timeout."
-echo "DefaultTimeoutStartSec=30s" >> /etc/systemd/system.conf
-echo "DefaultTimeoutStopSec=30s" >> /etc/systemd/system.conf
-
 notice "Setting up NTP."
 systemctl enable systemd-timesyncd.service
 timedatectl set-ntp true
 
-notice "Setting up swap."
-# TODO: This isn't idempotent, and fails on second run.
-dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+#notice "Setting up swap."
+## TODO: This isn't idempotent, and fails on second run.
+#dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+#chmod 600 /swapfile
+#mkswap /swapfile
+#swapon /swapfile
+#echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 
-notice "Installing guest modules."
-# Guest modules set up separately from other packages due to provider
-# dependencies.
-if [ "$(uname -m)" == x86_64 ]; then
-	pacman --noconfirm -S virtualbox-guest-utils-nox
-fi
-
-notice "Installing extra packages."
-# These packages are the minimum needed for rebooting, connecting via SSH, and
-# git cloning additional setup scripts as a non-root user.
-pacman --noconfirm -S dhcpcd openssh sudo git
-systemctl enable dhcpcd.service
-systemctl enable sshd.service
-echo "Defaults passwd_timeout=0" >> /etc/sudoers
-echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+#notice "Installing extra packages."
+## These packages are the minimum needed for rebooting, connecting via SSH, and
+## git cloning additional setup scripts as a non-root user.
+#pacman --noconfirm -S dhcpcd openssh sudo git
+#systemctl enable dhcpcd.service
+#systemctl enable sshd.service
+#echo "Defaults passwd_timeout=0" >> /etc/sudoers
+#echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 notice "Creating user."
 useradd -m petsta
