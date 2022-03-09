@@ -14,7 +14,7 @@ hwclock --systohc
 sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
 #echo LANG=en_AU.UTF-8 > /etc/locale.conf
-#echo KEYMAP=dvorak > /etc/vconsole.conf
+echo "FONT=lat9w-16" > /etc/vconsole.conf
 
 notice "Setting up networking."
 #echo "archvm$(date +%Y%m%d)" > /etc/hostname
