@@ -45,7 +45,7 @@ fi
 
 notice "Installing base"
 pacstrap /mnt \
-        base linux \
+        base linux efibootmgr\
         micro \
         grml-zsh-config zsh-completions zsh-syntax-highlighting \
         xfsprogs dosfstools \

@@ -59,19 +59,6 @@ echo "${NAME}":"${NAME}" | chpasswd
 printf "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10\n" > /etc/sudoers.d/local
 passwd -l root
 
-# Set up systemd-boot as the bootloader. A bootloader is used rather than
-# directly booting via EFISTUB, since the virtualised UEFI boot menu in
-# Parallels and VirtualBox is not easy to use.
-notice "Installing bootloader."
-bootctl install
-[ "$(uname -m)" == "aarch64" ] && vmlinuz="Image"
-[ "$(uname -m)" == "x86_64" ] && vmlinuz="vmlinuz-linux"
-[ -z "${vmlinuz:-}" ] && echo "unsupported: $(uname -m)" && exit 1
-echo "timeout 2" > /boot/loader/loader.conf
-echo "
-title   Arch Linux
-linux   /${vmlinuz}
-initrd  /initramfs-linux.img
-options root=/dev/vda2 rw
-" > /boot/loader/entries/arch.conf
-bootctl list
+# Use direct EFISTUB booting
+notice "Creating UEFI boot entry"
+efibootmgr --disk /dev/vda --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=/dev/vda2 rw initrd=\initramfs-linux.img' --verbose
