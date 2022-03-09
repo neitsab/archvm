@@ -66,6 +66,9 @@ ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 notice "Run chroot script"
 arch-chroot /mnt /chroot.sh
 
+notice "Unmounting virtual drive"
+umount -R /mnt
+
 notice "Shutdown notice"
 echo "Installation complete. You can now:"
 echo "  - Shutdown the VM using \`poweroff\`"
