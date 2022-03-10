@@ -1,57 +1,16 @@
 # Arch VM
 
-This repo contains a set of scripts to do the basic provisioning for my
-Arch Linux development VM. The scripts only perform provisioning for the base
-OS. Separate scripts (stored elsewhere) are used for full setup.
+This set of scripts perform a minimal Arch Linux install in a QEMU VM configured to use UEFI firmware and `virtio-blk` driver (`/dev/vda` storage device). It embodies the results of my numerous experiments with arch installs and uses my (hardcoded for now) preferences for that task, meaning:
 
-## Bootable Image
+* UEFI + GPT partitioning
+* 512 MiB FAT32 ESP partition mounted on `/boot` + XFS root partition using the remaining space
+* [Unified kernel image](https://wiki.archlinux.org/title/Unified_kernel_image) booting configured with `efibootmgr` (no boot manager), enabling...
+* kernel cmdline-less, fstab-less config by relying on the [DIscoverable Partitions Spec](https://systemd.io/DISCOVERABLE_PARTITIONS/) and `systemd-gpt-auto-generator`: `/boot` is automounted after bootup when accessed
+* thereby full-stack systemd: initramfs, network (DHCP), resolver, timesync
+* locked root account with `archvm` user gaining elevated privilege via `sudo`
+* ZSH shell with GRML config, shell completions and syntax highlighting (the same setup as on the Arch install media)
+* [micro](https://micro-editor.github.io/) text editor
+* French locale, keymap & timezone
+* 5 fastest HTTPS mirrors among the latest synchronized from France & Germany
 
-Download latest Arch Linux image:
-
-| Architecture | Image                                                               |
-| ---          | ---                                                                 |
-| `x86_64`     | [Link](https://www.archlinux.org/download/)                         |
-| `aarch64`    | [Link](https://pkgbuild.com/~tpowa/archboot-images/aarch64/latest/) |
-
-## Set up the VM
-
-Ensure you're running the latest version of the virtualisation software (e.g.
-Virtual Box or Parallels).
-
-It's important that the VM is set up to use UEFI. Parallels does this by
-default. Virtual Box must be configured to boot with UEFI.
-
-The VM should be given name `archvmYYYYMMDD`.
-
-Resource settings:
-
-| Setting | Home   | Work   |
-| ---     | ---    | ---    |
-| CPU     | 2      | 4      |
-| Memory  | 2048MB | 4096MB |
-| Disk    | 100GB  | 250GB  |
-
-The port `22DD` on the host should be forwarded to `22` on the guest (for SSH).
-
-## Commands
-
-Once the VM boots up into the live installer, execute the following steps by
-typing them manually:
-
-```
-loadkeys dvorak
-curl -L tinyurl.com/52f3wz3n | bash
-```
-
-# TODOs
-
-- Does using the "larger" image really matter? All things being equal, smaller
-  image is better. Need to try out both (I've been using the "larger" one).
-
-- Work out how to install from the generic ARM images.
-
-- Strip anything from the install scripts that aren't actually needed.
-
-- Add comments for _why_ everything is needed.
-
-- Use notices rather than comments.
+The aim is to provide a minimal, solid foundation which may serve as the basis for any kind of Arch VM.
