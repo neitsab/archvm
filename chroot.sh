@@ -65,7 +65,13 @@ echo -e "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10" > /etc/sudoers.d/
 passwd -l root
 
 echo "Creating UEFI boot entry"
-efibootmgr  --create --disk /dev/vda --part 1 --label "Arch Linux" --loader /archlinux-linux.efi --verbose
+efibootmgr  \
+    --create \
+    --disk /dev/vda \
+    --part 1 \
+    --label "Arch Linux" \
+    --loader /archlinux-linux.efi \
+    --verbose
 
 echo "pacman configuration"
 # https://man.archlinux.org/man/pacman.conf.5.en#OPTIONS
