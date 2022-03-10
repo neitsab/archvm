@@ -53,8 +53,8 @@ PRESETS=('\''default'\'')
 default_image="/boot/initramfs-linux.img"
 default_efi_image="/boot/archlinux-linux.efi"
 default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"' > /etc/mkinitcpio.d/linux.preset
-# required to prevent copying of current /proc/cmdline
-touch /etc/kernel/cmdline
+# smooth splash image boot
+echo "quiet bgrt_disable" > /etc/kernel/cmdline
 mkinitcpio -P
 
 echo "Creating user"
