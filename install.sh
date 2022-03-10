@@ -26,16 +26,13 @@ curl "$src" > "$dst"
 chmod +x "$dst"
 
 echo "Selecting mirrors"
-# Only needed for x86_64, because aarch64 mirrors do GeoIP based balancing. The
-# reflector package doesn't exist for aarch64.
-if [ "$(uname -m)" == x86_64 ]; then
-	systemctl disable --now reflector
-	reflector --country France,Germany \
-	          --latest 5 \
-	          --protocol https \
-	          --sort rate \
-	          --save /etc/pacman.d/mirrorlist
-fi
+# disable reflector service to prevent it from overwriting our manual invocation
+systemctl disable --now reflector
+reflector --country France,Germany \
+          --latest 5 \
+          --protocol https \
+          --sort rate \
+          --save /etc/pacman.d/mirrorlist
 
 echo "Installing base"
 pacstrap /mnt \
