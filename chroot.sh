@@ -64,7 +64,7 @@ echo "Creating user"
 NAME=archvm
 useradd -m -G wheel -s /bin/zsh "${NAME}"
 echo "${NAME}":"${NAME}" | chpasswd
-printf "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10\n" > /etc/sudoers.d/local
+echo -e "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10" > /etc/sudoers.d/local
 passwd -l root
 
 echo "Creating UEFI boot entry"
