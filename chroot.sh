@@ -3,15 +3,12 @@
 set -eux
 
 echo "Setting up locale and timezone"
-#ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
 hwclock --systohc
 sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
-#echo LANG=en_AU.UTF-8 > /etc/locale.conf
 echo "FONT=lat9w-16" > /etc/vconsole.conf
 
 echo "Setting up networking"
-#echo "archvm$(date +%Y%m%d)" > /etc/hostname
 echo "127.0.0.1   localhost
 ::1         localhost
 127.0.1.1   archvm.localdomain archvm" > /etc/hosts
