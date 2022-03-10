@@ -66,3 +66,25 @@ passwd -l root
 
 echo "Creating UEFI boot entry"
 efibootmgr  --create --disk /dev/vda --part 1 --label "Arch Linux" --loader /archlinux-linux.efi --verbose
+
+echo "pacman configuration"
+# https://man.archlinux.org/man/pacman.conf.5.en#OPTIONS
+sed -i \
+    -e '/Color/s/#//' \
+    -e '/VerbosePkgLists/s/#//' \
+    -e '/Parallel/s/#//' \
+    -e '/Parallel/ a ILoveCandy' \
+    /etc/pacman.conf
+
+echo "makepkg configuration"
+# https://wiki.archlinux.org/title/Makepkg#Tips_and_tricks
+# Enable native processor optimizations, as many parallel make jobs as there are logical
+# cores and multi-threaded compression
+sed -i \
+    -e 's/x86-64 -mtune=generic/native/' \
+    -e 's/#RUST/RUST/' \
+    -e '/^RUST/s/"$/ -C target-cpu=native"/' \
+    -e 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/' \
+    -e 's/xz/xz -T 0/' \
+    -e 's/zstd/zstd -T0/' \
+    /etc/makepkg.conf
