@@ -47,9 +47,23 @@ timedatectl set-ntp true
 #systemctl enable dhcpcd.service
 #systemctl enable sshd.service
 
-notice "Configuring initramfs (mkinitcpio)"
-sed -i "/^HOOKS=(base udev/s/base udev/systemd/" /etc/mkinitcpio.conf
-sed -i "/PRESETS=('default' 'fallback')/s/ 'fallback'//" /etc/mkinitcpio.d/linux.preset
+notice "Configuring initramfs (mkinitcpio) and creating unified kernel image"
+# Configure systemd-based initramfs
+sed -i "/^HOOKS/s/base udev/systemd/" /etc/mkinitcpio.conf
+# Configure mkinitcpio to generate a unified kernel image with stub loader
+# this allows us to forego both fstab and kernel command line
+echo '# mkinitcpio preset file for the '\''linux'\'' package
+
+ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/vmlinuz-linux"
+
+PRESETS=('\''default'\'')
+
+default_image="/boot/initramfs-linux.img"
+default_efi_image="/boot/archlinux-linux.efi"
+default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"' > /etc/mkinitcpio.d/linux.preset
+# required to prevent copying of current /proc/cmdline
+touch /etc/kernel/cmdline
 mkinitcpio -P
 
 notice "Creating user."
@@ -59,6 +73,5 @@ echo "${NAME}":"${NAME}" | chpasswd
 printf "${NAME} ALL=(ALL) ALL\nDefaults timestamp_timeout=10\n" > /etc/sudoers.d/local
 passwd -l root
 
-# Use direct EFISTUB booting
 notice "Creating UEFI boot entry"
-efibootmgr --disk /dev/vda --part 1 --create --label "Arch Linux" --loader /vmlinuz-linux --unicode 'root=/dev/vda2 rw initrd=\initramfs-linux.img' --verbose
+efibootmgr  --create --disk /dev/vda --part 1 --label "Arch Linux" --loader /archlinux-linux.efi --verbose
