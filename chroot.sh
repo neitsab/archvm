@@ -6,7 +6,7 @@ echo "Setting up locale and timezone"
 hwclock --systohc
 sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
-echo "FONT=lat9w-16" > /etc/vconsole.conf
+echo "FONT=ter-122b" > /etc/vconsole.conf
 
 echo "Setting up networking"
 echo "127.0.0.1   localhost

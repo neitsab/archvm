@@ -36,8 +36,8 @@ reflector --country France,Germany \
 
 echo "Installing base"
 pacstrap /mnt \
-        base linux efibootmgr\
-        micro \
+        base linux efibootmgr \
+        micro terminus-font \
         grml-zsh-config zsh-completions zsh-syntax-highlighting \
         xfsprogs dosfstools \
         sudo
