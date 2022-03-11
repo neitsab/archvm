@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-set -eux
+set -eu
 
 echo "Checking UEFI boot mode"
 test -d /sys/firmware/efi/efivars

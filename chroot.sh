@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-set -eux
+set -eu
 
 echo "Setting up locale and console font"
 hwclock --systohc
