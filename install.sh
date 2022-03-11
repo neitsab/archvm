@@ -10,6 +10,11 @@ timedatectl set-timezone Europe/Paris
 timedatectl set-ntp true
 
 echo "Preparing disk"
+for dev in /dev/vda1 /dev/vda2; do
+	if grep $dev /etc/mtab -q; then
+		umount $dev
+	fi
+done
 sgdisk -o -Z -n 1:0:+512MiB -t 1:ef00 -n 2:0:0 -t 2:8304 /dev/vda
 mkfs.fat -F 32 /dev/vda1
 mkfs.xfs -f -m bigtime=1,rmapbt=1 /dev/vda2
