@@ -2,7 +2,7 @@
 
 set -eux
 
-echo "Setting up locale and timezone"
+echo "Setting up locale and console font"
 hwclock --systohc
 sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
