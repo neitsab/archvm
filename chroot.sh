@@ -8,13 +8,14 @@ sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
 echo "FONT=ter-122b" > /etc/vconsole.conf
 
-echo "Setting up networking"
+echo "Setting up networking & NTP"
+
 cat << EOF > /etc/hosts
 127.0.0.1   localhost
 ::1         localhost
 127.0.1.1   archvm.localdomain archvm"
 EOF
-systemctl enable systemd-{resolve,network}d.service
+
 cat << 'EOF' > /etc/systemd/network/20-wired.network
 [Match]
 Name=en*
@@ -23,8 +24,7 @@ Name=en*
 DHCP=yes
 EOF
 
-echo "Setting up NTP"
-systemctl enable systemd-timesyncd.service
+systemctl enable systemd-{resolve,network,timesync}d.service
 timedatectl set-ntp true
 
 #echo "Setting up swap"
