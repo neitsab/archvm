@@ -6,7 +6,7 @@ echo "Setting up locale and console font"
 hwclock --systohc
 sed -i '/fr_FR.UTF-8/s/#//' /etc/locale.gen
 locale-gen
-echo "FONT=ter-122b" > /etc/vconsole.conf
+echo "FONT=ter-122b" >> /etc/vconsole.conf
 
 echo "Setting up networking & NTP"
 
