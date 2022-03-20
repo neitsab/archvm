@@ -16,6 +16,22 @@ This set of scripts perform a minimal Arch Linux install in a QEMU VM configured
 
 The aim is to provide a minimal, solid foundation which may serve as the basis for any kind of Arch VM.
 
+## Usage
+
+Once booted 1) in the Arch Live environment 2) in a QEMU *UEFI* VM 3) using the `virtio-blk` storage driver (and therefore with a `/dev/vda` as storage device), follow the installation guide from [this point](https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout) up until you have Internet access, then download the script:
+
+    curl -OL https://github.com/neitsab/archvm/raw/master/install.sh
+
+Review and edit it as desired, then execute it:
+
+    bash install.sh
+
+If you are ok with what the script does, you can combine both steps in one command:
+
+    curl -sL https://github.com/neitsab/archvm/raw/master/install.sh | bash
+
+> **/!\ Warning:** This will irremediably destroy anything that was on `/dev/vda`.
+
 ## Perspectives
 
 * verify whether the two disjointed scripts can be merged into one single file
