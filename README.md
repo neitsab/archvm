@@ -18,7 +18,7 @@ The aim is to provide a minimal, solid foundation which may serve as the basis f
 
 ## Usage
 
-Once booted 1) in a *UEFI* QEMU VM 2) using the `virtio-blk` storage driver (and therefore with a `/dev/vda` as storage device) 3) in the Arch Live environment, follow the installation guide from [this point](https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout) up until you have Internet access then download the script:
+Once booted 1) in a *UEFI* QEMU VM 2) using the `virtio-blk` storage driver (and therefore with a `/dev/vda` as storage device) 3) in the Arch Live environment; follow the installation guide from [this point](https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout) until you have Internet access, and then download the script:
 
     curl -OL https://github.com/neitsab/archvm/raw/master/install.sh
 
