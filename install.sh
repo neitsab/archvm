@@ -62,7 +62,7 @@ systemd-firstboot --root=/mnt \
             --timezone=Europe/Paris \
             --hostname=archvm \
             --root-shell=/usr/bin/zsh \
-            --force \
+            --force
 
 echo "Set up systemd-resolved symlink"
 ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
