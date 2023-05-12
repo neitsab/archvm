@@ -1,6 +1,6 @@
 # Arch VM
 
-This set of scripts perform a minimal Arch Linux install in a QEMU VM configured to use UEFI firmware and `virtio-blk` driver (`/dev/vda` storage device). It embodies the results of my numerous experiments with Arch installs and uses my (hardcoded for now) preferences for that task, meaning:
+This set of scripts performs a minimal Arch Linux install in a QEMU VM configured to use UEFI firmware and `virtio-blk` driver (`/dev/vda` storage device). It embodies the results of my numerous experiments with Arch installs and uses my (hardcoded for now) preferences for that task, meaning:
 
 * UEFI + GPT partitioning
 * 512 MiB FAT32 ESP partition mounted on `/boot` + XFS root partition using the remaining space
@@ -18,9 +18,15 @@ The aim is to provide a minimal, solid foundation which may serve as the basis f
 
 ## Usage
 
-Once booted 1) in a *UEFI* QEMU VM 2) using the `virtio-blk` storage driver (and therefore with a `/dev/vda` as storage device) 3) in the Arch Live environment; follow the installation guide from [this point](https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout) until you have Internet access, and then download the script:
+Once booted
 
-    curl -OL https://github.com/neitsab/archvm/raw/master/install.sh
+1. in a *UEFI* QEMU VM
+2. using the `virtio-blk` storage driver (and therefore with a `/dev/vda` as storage device)
+3. in the Arch Live environment
+
+Follow the installation guide from [this point](https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout) until you have Internet access, and then download the script:
+
+   	curl -OL https://github.com/neitsab/archvm/raw/master/install.sh
 
 Review and edit it as desired, and when ready execute it:
 
