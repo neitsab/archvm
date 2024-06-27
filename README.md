@@ -5,7 +5,7 @@ This set of scripts performs a minimal Arch Linux install in a QEMU VM configure
 * UEFI + GPT partitioning
 * 512 MiB FAT32 ESP partition mounted on `/boot` + XFS root partition using the remaining space
 * [Unified kernel image](https://wiki.archlinux.org/title/Unified_kernel_image) booting directly  configured with [efibootmgr](https://github.com/rhboot/efibootmgr), enabling...
-* root param-less, fstab-less config by relying on the [DIscoverable Partitions Spec](https://systemd.io/DISCOVERABLE_PARTITIONS/) and [systemd-gpt-auto-generator](https://man.archlinux.org/man/systemd-gpt-auto-generator.8) (`/boot` is automounted after boot upon first access)
+* root param-less, fstab-less config by relying on the [Discoverable Partitions Spec](https://systemd.io/DISCOVERABLE_PARTITIONS/) and [systemd-gpt-auto-generator](https://man.archlinux.org/man/systemd-gpt-auto-generator.8) (`/boot` is automounted after boot upon first access)
 * systemd basic stack: initramfs, network (DHCP), resolver, timesync
 * basic system config done pre-chroot with [systemd-firstboot](https://man.archlinux.org/man/core/systemd/systemd-firstboot.1.en)
 * locked root account with `archvm` user configured for `sudo`
