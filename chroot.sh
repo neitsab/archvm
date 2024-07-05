@@ -13,7 +13,7 @@ echo "Setting up networking & NTP"
 cat << EOF > /etc/hosts
 127.0.0.1   localhost
 ::1         localhost
-127.0.1.1   archvm.localdomain archvm"
+127.0.1.1   archvm.localdomain archvm
 EOF
 
 cat << 'EOF' > /etc/systemd/network/20-wired.network
